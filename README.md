@@ -1,4 +1,4 @@
-# Tanzu Community Edition Application Toolkit Sample Workload
+# Application Toolkit Sample App for TCE 
 
 This project is a simple spring boot web application. It was created by
 visiting start.spring.io, choosing the Spring Web framework, and adding the
