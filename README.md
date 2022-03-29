@@ -1,29 +1,56 @@
-# application-toolkit-sample-app
+# Tanzu Community Edition Application Toolkit Sample Workload
 
-## Overview
+This project is a simple spring boot web application. It was created by
+visiting start.spring.io, choosing the Spring Web framework, and adding the
+HelloController.
 
-## Try it out
+## Prerequisites
 
-### Prerequisites
+Installed Tanzu Community Edition Application Toolkit and its dependencies.
 
-* Prereq 1
-* Prereq 2
-* Prereq 3
+## Deploying Workload
 
-### Build & Run
+Use the Tanzu CLI to create the Workload from the workload.yaml file. Assumes
 
-1. Step 1
-2. Step 2
-3. Step 3
+```
+tanzu apps workload create -f workload.yaml --yes
+```
 
-## Documentation
+Watch kpack find the correct buildpack and build the workload. Look for the
+"Build successful" message when complete.
 
-## Contributing
+```
+tanzu apps workload tail tanzu-simple-web-app
+```
 
-The application-toolkit-sample-app project team welcomes contributions from the community. Before you start working with application-toolkit-sample-app, please
-read our [Developer Certificate of Origin](https://cla.vmware.com/dco). All contributions to this repository must be
-signed as described on that page. Your signature certifies that you wrote the patch or have the right to pass it on
-as an open-source patch. For more detailed information, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+In a short time Knative will host the workload. Check for it to be READY:
 
-## License
+'kubectl get service.serving.knative.dev/tanzu-simple-web-app'
+
+
+## Testing the workload
+
+The workload should end up deployed on knative. 
+
+Test the workload:
+
+```
+curl http://tanzu-simple-web-app.default.127-0-0-1.sslip.io 
+```
+
+## Revising the workload
+
+For this test, you will need to put the sample workload code in your own git repo. Change
+workload.yaml spec.source.git.url appropriately. Delete and recreate the workload.
+
+Change the workload code. For example, 
+open `src/main/java/com/example/demo/HelloController.java` and change the message.
+Don't forget to change `src/text/java/com/example/demo/HelloControllerTest.java` if
+you want your tests to pass!
+
+Push your changes to git. Wait a minute or so - source controller has been watching git
+and will rebuild the application. Watch for the knative service to increment the LATESTREADY
+field.
+
+curl the app again and see your new message.
 
