@@ -38,19 +38,20 @@ Test the workload:
 curl http://tanzu-simple-web-app.default.127-0-0-1.sslip.io 
 ```
 
-## Revising the workload
+## Create apps based on your own Git Repo
 
-For this test, you will need to put the sample workload code in your own git repo. Change
-workload.yaml spec.source.git.url appropriately. Delete and recreate the workload.
+1. Fork the repo or create your git repo with the source code. 
+2. Update the `workload.yaml` with the corresponding git URL
+3. Run `tanzu apps workload create` using the updated `workload.yaml` 
 
-Change the workload code. For example, 
-open `src/main/java/com/example/demo/HelloController.java` and change the message.
-Don't forget to change `src/text/java/com/example/demo/HelloControllerTest.java` if
-you want your tests to pass!
+## Updating your workload
 
-Push your changes to git. Wait a minute or so - source controller has been watching git
-and will rebuild the application. Watch for the knative service to increment the LATESTREADY
+1. Compile and run your source code
+`./mvnw spring-boot:run`
+
+2. Once the changes are complete, push your changes to git repo. 
+3. Wait a minute or so - source controller has been watching git and will rebuild the application. 
+4. Watch for the knative service to increment the LATESTREADY
 field.
 
-curl the app again and see your new message.
-
+5. curl the app again and see your new message.
