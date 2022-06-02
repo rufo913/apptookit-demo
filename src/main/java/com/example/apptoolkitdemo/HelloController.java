@@ -8,7 +8,7 @@ public class HelloController {
 
 	@GetMapping("/")
 	public String index() {
-		return "Greetings from Application Toolkit in Tanzu Community Edition!";
+		return "Hola mundo!!!";
 	}
 
 }
